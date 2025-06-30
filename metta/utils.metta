@@ -64,3 +64,22 @@
     )
 )
 
+
+; contribution 
+(=(contribution $lst1 $lst2 $emergence)
+
+    (if (or (or (== $lst1 ()) (== $lst2 ())) (== $lst3 ()))
+        ()
+        (let*
+            (
+                (($h1 $t1) (decons-atom $lst1))
+                (($h2 $t2) (decons-atom $lst2))
+                (($h3 $t3) (decons-atom $emergence))
+
+                ($min-prod (* (min $h1 $h2) $h3))
+                ($res (contribution $t1 $t2 $t3))
+            )
+            (cons-atom $min-prod $res)
+        )
+    )
+)
