@@ -21,3 +21,5 @@ SBX_ETA_GROWTH = 1.05       # SBX eta increases each generation
 print(f'candidate fitness: {fitness(candidate)}')
 
 print(f'cross over: {sbx_crossover(INPUT_A, INPUT_B, INITIAL_SBX_ETA)}')
+
+print(f'mutation: {mutate(INPUT_A, INITIAL_MUTATION_STD)}')
