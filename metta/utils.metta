@@ -83,3 +83,23 @@
         )
     )
 )
+
+; emergence
+(=(emergence $cand $a $b)
+
+    (if (or (or (== $cand ()) (== $a ())) (== $b ()))
+        ()
+        (let*
+            (
+                (($hc $tc) (decons-atom $cand))
+                (($ha $ta) (decons-atom $a))
+                (($hb $tb) (decons-atom $b))
+
+                ($diff-max (- $hc (max $ha $hb)))
+                ($emerg (max 0 $diff-max)) ; clamp negative emergence to 0
+                ($res (emergence $tc $ta $tb))
+            )
+            (cons-atom $emerg $res)
+        )
+    )
+)
