@@ -3,7 +3,10 @@ from ga import *
 INPUT_A = [0.9, 0.9, 0.0, 0.8, 0.2, 0.9, 0.7, 0.7]
 INPUT_B = [0.8, 0.2, 1.0, 0.3, 0.9, 0.4, 0.7, 0.3]
 candidate = [0.9,  0.9,  0.5,  0.9,  1.0,  0.9,  0.9,  0.8]
-
+population = [ [1.0, 0.9, 0.7, 0.9, 1.0, 0.5, 0.1, 0.9], 
+              [0.9,  0.9,  0.0,  0.8,  0.2,  0.9,  0.7,  0.7], 
+              [0.8,  0.2,  1.0,  0.3,  0.9,  0.4,  0.6,  0.3]] 
+fitnesses = [0.4, 0.5, 0.6]
 
 # === Parameters ===
 POP_SIZE = 50
@@ -23,3 +26,5 @@ print(f'candidate fitness: {fitness(candidate)}')
 print(f'cross over: {sbx_crossover(INPUT_A, INPUT_B, INITIAL_SBX_ETA)}')
 
 print(f'mutation: {mutate(INPUT_A, INITIAL_MUTATION_STD)}')
+
+print(f'selection: {roulette_stochastic_acceptance(population, fitnesses)}')
