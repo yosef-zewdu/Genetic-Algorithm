@@ -123,3 +123,20 @@
         )
     )
 )
+
+;---------------------- POPULATION INITIALIZATION---------------------------
+; individual with its number of gene
+(= (individual $genes $acc)
+    (if (== $genes 0)
+        $acc
+        (individual (- $genes 1) (union-atom $acc ((random-float 0 1)) ))
+    )
+)
+
+; population of individuals with pop-size number each with its gene number 
+(= (initialize-population $pop-size $genes $acc)
+    (if (== $pop-size 0)
+        $acc
+        (initialize-population (- $pop-size 1) $genes (union-atom $acc ((individual $genes ()))))
+    )
+)
