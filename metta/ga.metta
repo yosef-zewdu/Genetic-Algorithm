@@ -1,3 +1,5 @@
+!(bind! random-gauss (py-atom random.gauss))
+
 
 ; fitness function
 (=(fitness $candidate $in-a $in-b $gene)
@@ -13,7 +15,9 @@
 )
 
 
+;   ------------------------------ CROSS OVER function -----------------
 
+; sbx crossover
 (=(sbx $h1 $h2 $t1 $t2 $eta $crossover-rate $acc1 $acc2)
     (let*
         (
@@ -35,6 +39,7 @@
     )
 )
 
+; copy from parent
 (= (copygene $h1 $h2  $t1 $t2 $eta $crossover-rate $acc1 $acc2)
     (let* 
         (
@@ -45,6 +50,7 @@
         ($res1 $res2)    
     )
 )
+
 
 (=(crossover $p1 $p2 $eta $crossover-rate $acc1 $acc2)
     (if (or (== $p1 ()) (== $p2 ())) ((reverse $acc1 ()) (reverse $acc2 ()))
@@ -64,6 +70,8 @@
     )
 )
 
+
+;crossover based on crossover rate
 (=(sbx-crossover $p1 $p2 $eta $crossover-rate $acc1 $acc2)
     
 
@@ -73,4 +81,26 @@
             (crossover $p1 $p2 $eta $crossover-rate $acc1 $acc2)
         )
     
+)
+
+
+
+;   ---------------------- MUTATION function---------------------
+
+(= (mutate $individual $mutation-std $mutation-rate $acc)
+    (if (== $individual ())
+        $acc
+        (let*
+            (
+                (($gene $tail) (decons-atom $individual))
+                ($rand (random-float 0 1))
+                ($mutated-gene (if (< $rand $mutation-rate)
+                                    (min (max (+ $gene (random-gauss 0 $mutation-std)) 0.0) 1.0)
+                                    (min (max $gene 0.0) 1.0)
+                                   ))
+                ($mutated (union-atom $acc ($mutated-gene)))
+            )
+            (mutate $tail $mutation-std $mutation-rate $mutated)
+        )
+    )
 )
