@@ -39,7 +39,7 @@
     )
 )
 
-; copy from parent
+; copy from parent without crossover
 (= (copygene $h1 $h2  $t1 $t2 $eta $crossover-rate $acc1 $acc2)
     (let* 
         (
@@ -101,6 +101,25 @@
                 ($mutated (union-atom $acc ($mutated-gene)))
             )
             (mutate $tail $mutation-std $mutation-rate $mutated)
+        )
+    )
+)
+
+
+;-------------------------- SELECTION function---------------------
+(= (roulette-stochastic-acceptance $population $fitnesses)
+    (let*
+        (
+            ($w-max (max-atom $fitnesses))
+            ($n (size-atom $population))
+            ($i (random-int 0 $n))
+            ($rand (random-float 0 1))
+            ($fit-i (index-atom $fitnesses $i))
+            ; ($_ (println! ($i)))
+        )
+        (if (< $rand (/ $fit-i $w-max))
+            (index-atom $population $i)
+            (roulette-stochastic-acceptance $population $fitnesses)
         )
     )
 )
