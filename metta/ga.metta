@@ -4,8 +4,7 @@
 
     (let*
         (
-            ($emerg (difference $candidate (maximum $in-a $in-b)))
-            ($emergence (reverse (collapse (max 0 (superpose $emerg))) ())) ; clamp negative emergence to 0
+            ($emergence (emergence $candidate $in-a $in-b))
             ($contr (contribution $in-a $in-b $emergence))
             ($total (foldl-atom $contr 0 $acc $x (+ $acc $x)))
         )
