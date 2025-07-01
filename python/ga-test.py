@@ -9,7 +9,7 @@ population = [ [1.0, 0.9, 0.7, 0.9, 1.0, 0.5, 0.1, 0.9],
 fitnesses = [0.4, 0.5, 0.6]
 
 # === Parameters ===
-POP_SIZE = 50
+POP_SIZE = 5
 GENES = 8
 GENERATIONS = 30
 ELITE_COUNT = 3
@@ -28,3 +28,5 @@ print(f'cross over: {sbx_crossover(INPUT_A, INPUT_B, INITIAL_SBX_ETA)}')
 print(f'mutation: {mutate(INPUT_A, INITIAL_MUTATION_STD)}')
 
 print(f'selection: {roulette_stochastic_acceptance(population, fitnesses)}')
+
+print(f'population initialization: {initialize_population()}')
